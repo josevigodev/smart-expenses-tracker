@@ -1,35 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { Button } from './components/Button';
+import { ExpensesContextProvider } from './context/ExpensesContextProvider';
+import { ExpenseForm } from './features/expenses/ExpenseForm';
+import { ExpenseList } from './features/expenses/ExpenseList';
+import './styles/globals.css';
+import { AddIcon } from './components/Icons';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [openForm, setOpenForm] = useState(false);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <ExpensesContextProvider>
+      <h1>Smart Expenses Tracker</h1>
+      <Button handleClick={() => setOpenForm(!openForm)}>
+        <AddIcon />
+      </Button>
+      <ExpenseForm openForm={openForm} setOpenForm={setOpenForm} />
+      <ExpenseList />
+    </ExpensesContextProvider>
+  );
 }
 
-export default App
+export default App;

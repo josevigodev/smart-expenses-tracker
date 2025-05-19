@@ -1,0 +1,170 @@
+.button {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  font-weight: bold;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  &:active {
+    opacity: 0.8;
+  }
+
+  &.close {
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+
+    &:hover {
+      transform: none;
+    }
+  }
+
+  &.delete {
+    background-color: #f44;
+  }
+
+  &.edit {
+    background-color: #48e;
+  }
+
+  &.add {
+    background-color: #48e;
+  }
+}
+
+.blur {
+  background-color: #0004;
+  backdrop-filter: blur(4px);
+  width: 100dvw;
+  height: 100dvh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  place-items: center;
+}
+
+.flex-column-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row-container {
+  display: flex;
+  gap: 10px;
+}
+
+.input {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background-color: #333;
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.expense-form {
+  background-color: #444;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 300px;
+  width: 100%;
+  margin: 0 auto;
+  gap: 10px;
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.visible {
+  display: flex;
+}
+
+.expenses-table {
+  background-color: #333;
+  border-collapse: collapse;
+  margin: 0 auto;
+  border-radius: 10px;
+  width: 100%;
+
+  & th {
+    text-align: start;
+  }
+
+  & th,
+  & td {
+    padding: 5px;
+  }
+
+  & td {
+    border-top: 2px solid #555;
+
+    & span {
+      border-radius: 7px;
+      padding: 2px 5px;
+    }
+  }
+}
+
+.Housing {
+  background-color: #48e7;
+}
+.Utilities {
+  background-color: #4e87;
+}
+.Transportation {
+  background-color: #4887;
+}
+.Groceries {
+  background-color: #4ee7;
+}
+.Health {
+  background-color: #84e7;
+}
+.Insurance {
+  background-color: #8e47;
+}
+.Entertainment {
+  background-color: #8ee7;
+}
+.Education {
+  background-color: #8447;
+}
+.Shopping {
+  background-color: #e487;
+}
+.Travel {
+  background-color: #e847;
+}
+.Gifts {
+  background-color: #e887;
+}
+.Saving {
+  background-color: #e447;
+}
+.Investments {
+  background-color: #a3e7;
+}
+.Miscellaneous {
+  background-color: #6667;
+}
+
+@media screen and (min-width: 450px) {
+  .expenses-table {
+    & th,
+    & td {
+      padding: 10px;
+    }
+  }
+}
