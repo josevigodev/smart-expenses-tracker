@@ -12,7 +12,7 @@ function App() {
   return (
     <ExpensesContextProvider>
       <h1>Smart Expenses Tracker</h1>
-      <Button handleClick={() => setOpenForm(!openForm)}>
+      <Button title='add expense' handleClick={() => setOpenForm(!openForm)}>
         <AddIcon />
       </Button>
       <ExpenseForm openForm={openForm} setOpenForm={setOpenForm} />

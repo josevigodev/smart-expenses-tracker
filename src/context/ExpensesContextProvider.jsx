@@ -1,34 +1,43 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 import { ExpensesContext } from './ExpensesContext';
+import { expensesReducer } from '../reducers/expenseReducer';
 
 const initialData = {
   id: 0,
   title: 'Netflix movie',
   amount: 0.01,
   category: 'Housing',
-  date: '10-23-2025',
+  date: '2025-05-21',
 };
 
-let nextId = 1;
-
 export function ExpensesContextProvider({ children }) {
-  const [expenses, setExpenses] = useState([initialData]);
+  const [expenses, dispatch] = useReducer(expensesReducer, [initialData]);
 
-  const addExpense = ({ expense }) => {
-    setExpenses((prevExpenses) => [
-      ...prevExpenses,
-      { ...expense, id: nextId++ },
-    ]);
+  const addExpense = ({ expenseData }) => {
+    dispatch({
+      type: 'added_expense',
+      expenseData: expenseData,
+    });
+  };
+
+  const editExpense = ({ expenseData }) => {
+    dispatch({
+      type: 'edited_expense',
+      expenseData: expenseData,
+    });
   };
 
   const deleteExpense = (id) => {
-    setExpenses((prevExpenses) =>
-      prevExpenses.filter((expense) => expense.id !== id)
-    );
+    dispatch({
+      type: 'deleted_expense',
+      id: id,
+    });
   };
 
   return (
-    <ExpensesContext.Provider value={{ expenses, addExpense, deleteExpense }}>
+    <ExpensesContext.Provider
+      value={{ expenses, addExpense, editExpense, deleteExpense }}
+    >
       {children}
     </ExpensesContext.Provider>
   );

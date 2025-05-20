@@ -7,7 +7,7 @@
   font-weight: bold;
 
   &:hover {
-    transform: translateY(-5px);
+    transform: translateY(-2px);
   }
 
   &:active {
@@ -28,14 +28,21 @@
 
   &.delete {
     background-color: #f44;
+    padding: 5px;
   }
 
   &.edit {
     background-color: #48e;
+    padding: 5px;
   }
 
   &.add {
     background-color: #48e;
+  }
+
+  &.save {
+    background-color: #4e8;
+    padding: 5px;
   }
 }
 
@@ -69,6 +76,22 @@
 
   &:focus-visible {
     outline: none;
+  }
+}
+
+.edit-input {
+  padding: 5px;
+  width: 70px;
+  border-radius: 8px;
+  border: 1px solid #999;
+  background-color: transparent;
+
+  &.width-100 {
+    width: 100px;
+  }
+
+  &.width-110 {
+    width: 110px;
   }
 }
 
@@ -110,7 +133,7 @@
   & td {
     border-top: 2px solid #555;
 
-    & span {
+    & #category {
       border-radius: 7px;
       padding: 2px 5px;
     }
