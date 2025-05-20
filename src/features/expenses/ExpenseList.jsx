@@ -1,9 +1,13 @@
 import { useContext } from 'react';
 import { ExpensesContext } from '../../context/ExpensesContext';
 import { ExpenseItem } from './ExpenseItem';
+import { useFilterExpenses } from '../../hooks/useFilterExpenses';
 
 export function ExpenseList({ setOpenForm, openForm }) {
   const { expenses } = useContext(ExpensesContext);
+  const { filterExpenses } = useFilterExpenses();
+  const filteredExpenses = filterExpenses(expenses);
+
   return (
     <section className='width-padding-container'>
       <table className='expenses-table'>
@@ -17,7 +21,7 @@ export function ExpenseList({ setOpenForm, openForm }) {
           </tr>
         </thead>
         <tbody>
-          {expenses.map((expense) => (
+          {filteredExpenses.map((expense) => (
             <ExpenseItem
               setOpenForm={setOpenForm}
               openForm={openForm}

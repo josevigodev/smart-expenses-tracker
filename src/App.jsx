@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Button } from './components/Button';
 import { ExpensesContextProvider } from './context/ExpensesContextProvider';
+import { FilterContextProvider } from './context/FilterContextProvider';
 import { ExpenseForm } from './features/expenses/ExpenseForm';
 import { ExpenseList } from './features/expenses/ExpenseList';
 import './styles/globals.css';
 import { AddIcon } from './components/Icons';
+import { ExpenseFilter } from './features/expenses/ExpenseFilter';
 
 function App() {
   const [openForm, setOpenForm] = useState(false);
@@ -16,7 +18,10 @@ function App() {
         <AddIcon />
       </Button>
       <ExpenseForm openForm={openForm} setOpenForm={setOpenForm} />
-      <ExpenseList />
+      <FilterContextProvider>
+        <ExpenseFilter />
+        <ExpenseList />
+      </FilterContextProvider>
     </ExpensesContextProvider>
   );
 }

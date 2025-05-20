@@ -36,6 +36,7 @@ export function Input({ type, value, id, required, handleChange, className }) {
       value={value}
       onChange={handleChange}
     >
+      <option value='select'>Select</option>
       <option value='Housing'>Housing</option>
       <option value='Utilities'>Utilities</option>
       <option value='Transportation'>Transportation</option>

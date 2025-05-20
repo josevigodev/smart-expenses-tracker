@@ -3,7 +3,7 @@ import { useState } from "react";
 const emptyForm = {
   title: '',
   amount: 0.01,
-  category: 'Housing',
+  category: 'select',
   date: '',
 };
 
