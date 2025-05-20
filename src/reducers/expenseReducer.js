@@ -1,24 +1,33 @@
-let nextId = 1;
+import { getLocalStorage, updateLocalStorage } from "../utils/localStorage";
+
+let nextId = getLocalStorage('nextId') || 1;
 
 export function expensesReducer(expenses, action) {
   const { type, expenseData, id } = action;
   switch (type) {
     case 'added_expense': {
-      return [...expenses, { id: nextId++, ...expenseData }];
+      const newExpenses = [...expenses, { id: nextId++, ...expenseData }];
+      updateLocalStorage('expenses', newExpenses);
+      updateLocalStorage('nextId', nextId++)
+      return newExpenses;
     }
 
     case 'edited_expense': {
-      return expenses.map((expense) => {
+      const newExpenses = expenses.map((expense) => {
         if (expense.id === expenseData.id) {
           return expenseData;
         } else {
           return expense;
         }
       });
+      updateLocalStorage('expenses', newExpenses);
+      return newExpenses;
     }
 
     case 'deleted_expense': {
-      return expenses.filter((expense) => expense.id !== id);
+      const newExpenses = expenses.filter((expense) => expense.id !== id);
+      updateLocalStorage('expenses', newExpenses);
+      return newExpenses;
     }
 
     default: {

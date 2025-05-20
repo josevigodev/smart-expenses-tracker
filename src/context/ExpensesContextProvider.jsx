@@ -1,17 +1,12 @@
 import { useReducer } from 'react';
 import { ExpensesContext } from './ExpensesContext';
 import { expensesReducer } from '../reducers/expenseReducer';
+import { getLocalStorage } from '../utils/localStorage';
 
-const initialData = {
-  id: 0,
-  title: 'Netflix movie',
-  amount: 0.01,
-  category: 'Housing',
-  date: '2025-05-21',
-};
+const initialExpenses = getLocalStorage('expenses') || [];
 
 export function ExpensesContextProvider({ children }) {
-  const [expenses, dispatch] = useReducer(expensesReducer, [initialData]);
+  const [expenses, dispatch] = useReducer(expensesReducer, initialExpenses);
 
   const addExpense = ({ expenseData }) => {
     dispatch({
