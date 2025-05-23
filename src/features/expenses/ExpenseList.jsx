@@ -1,12 +1,13 @@
-import { useContext } from 'react';
 import { ExpensesContext } from '../../context/ExpensesContext';
 import { ExpenseItem } from './ExpenseItem';
 import { useFilterExpenses } from '../../hooks/useFilterExpenses';
+import { useWindowWidth } from '../../hooks/useWindowWidth';
+import { Button } from '../../components/Button';
+import { AddIcon } from '../../components/Icons';
 
 export function ExpenseList({ setOpenForm, openForm }) {
-  const { expenses } = useContext(ExpensesContext);
-  const { filterExpenses } = useFilterExpenses();
-  const filteredExpenses = filterExpenses(expenses);
+  const { expenses } = useFilterExpenses();
+  const { width } = useWindowWidth();
 
   return (
     <section className='width-padding-container'>
@@ -17,11 +18,24 @@ export function ExpenseList({ setOpenForm, openForm }) {
             <th>Amount</th>
             <th>Category</th>
             <th>Date</th>
-            <th> </th>
+            <th>
+              {width > 950 && (
+                <Button
+                  className={`button add ${
+                    width > 540 && 'flex-row-container'
+                  }`}
+                  title='add expense'
+                  handleClick={() => setOpenForm(true)}
+                >
+                  <AddIcon />
+                  {width > 540 && <span>Add Expense</span>}
+                </Button>
+              )}
+            </th>
           </tr>
         </thead>
         <tbody>
-          {filteredExpenses.map((expense) => (
+          {expenses.map((expense) => (
             <ExpenseItem
               setOpenForm={setOpenForm}
               openForm={openForm}

@@ -4,12 +4,14 @@ import { ExpensesContext } from '../../context/ExpensesContext';
 import { CloseIcon } from '../../components/Icons';
 import { Input } from '../../components/Input';
 import { useExpenseData } from '../../hooks/useExpenseData';
+import { useOpenModal } from '../../hooks/useOpenModal';
 
 export function ExpenseForm({ openForm, setOpenForm }) {
   const titleId = useId();
   const amountId = useId();
   const categoryId = useId();
   const dateId = useId();
+  const { className } = useOpenModal({ state: openForm });
 
   const { addExpense } = useContext(ExpensesContext);
   const { data, handleChange, setData, initialData } = useExpenseData();
@@ -25,7 +27,7 @@ export function ExpenseForm({ openForm, setOpenForm }) {
     <div className={`blur ${openForm && 'visible'}`}>
       <form
         onSubmit={handleSubmit}
-        className={`expense-form ${openForm && 'visible'}`}
+        className={`expense-form modal ${className}`}
       >
         <Button
           className='button close'
