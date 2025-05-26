@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { memo, useContext, useState } from 'react';
 import { Button } from '../../components/Button';
 import {
   CloseIcon,
@@ -10,7 +10,14 @@ import { ExpensesContext } from '../../context/ExpensesContext';
 import { Input } from '../../components/Input';
 import { useExpenseData } from '../../hooks/useExpenseData';
 
-export function ExpenseItem({ title, amount, category, date, id, expense }) {
+export const ExpenseItem = memo(function ({
+  title,
+  amount,
+  category,
+  date,
+  id,
+  expense,
+}) {
   const { deleteExpense, editExpense } = useContext(ExpensesContext);
   const [isEditing, setIsEditing] = useState(false);
   const { data, handleChange } = useExpenseData(expense);
@@ -121,4 +128,4 @@ export function ExpenseItem({ title, amount, category, date, id, expense }) {
       </td>
     </tr>
   );
-}
+});

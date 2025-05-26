@@ -3,7 +3,7 @@ import { Button } from '../../components/Button';
 import { ExpensesContext } from '../../context/ExpensesContext';
 import { CloseIcon } from '../../components/Icons';
 import { Input } from '../../components/Input';
-import { useExpenseData } from '../../hooks/useExpenseData';
+import { emptyForm, useExpenseData } from '../../hooks/useExpenseData';
 import { useOpenModal } from '../../hooks/useOpenModal';
 
 export function ExpenseForm({ openForm, setOpenForm }) {
@@ -11,20 +11,21 @@ export function ExpenseForm({ openForm, setOpenForm }) {
   const amountId = useId();
   const categoryId = useId();
   const dateId = useId();
+
   const { className } = useOpenModal({ state: openForm });
 
   const { addExpense } = useContext(ExpensesContext);
-  const { data, handleChange, setData, initialData } = useExpenseData();
+  const { data, handleChange, setData } = useExpenseData();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     addExpense({ expenseData: data });
-    setData(initialData);
+    setData(emptyForm);
     setOpenForm(!openForm);
   };
 
   return (
-    <div className={`blur ${openForm && 'visible'}`}>
+    <div className={`blur ${openForm ? 'visible' : ''}`}>
       <form
         onSubmit={handleSubmit}
         className={`expense-form modal ${className}`}
@@ -34,7 +35,7 @@ export function ExpenseForm({ openForm, setOpenForm }) {
           type='button'
           handleClick={() => {
             setOpenForm(!openForm);
-            setData(initialData);
+            setData(emptyForm);
           }}
         >
           <CloseIcon />

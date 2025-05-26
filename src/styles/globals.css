@@ -7,6 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
   transition: scale 0.3s ease, transform 0.3s ease;
 
   &:hover {
@@ -134,7 +135,7 @@
   margin: auto;
   width: 300px;
   display: none;
-  background-color: #333;
+  background-color: var(--color-dark-a);
   flex-direction: column;
   padding: 10px;
   gap: 20px;
@@ -145,12 +146,16 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #000;
+  border-bottom: 2px solid var(--border-dark-color);
   align-items: center;
   padding-bottom: 10px;
 
   & h4 {
     font-size: 1.1em;
+  }
+
+  & .button {
+    display: block;
   }
 }
 
@@ -162,7 +167,7 @@
 
   & .filter {
     align-items: center;
-    background-color: #222;
+    background-color: var(--color-dark-a);
     border-radius: 8px;
     padding: 10px;
     gap: 10px;
@@ -170,7 +175,7 @@
 }
 
 .expense-form {
-  background-color: #444;
+  background-color: var(--color-dark-a);
   flex-direction: column;
   padding: 20px;
   border-radius: 10px;
@@ -195,11 +200,16 @@
   border-radius: 10px;
   margin: 0 auto;
   display: none;
-  background-color: #333;
+  background-color: var(--color-dark-a);
   flex-direction: column;
   padding: 10px;
   align-items: center;
   z-index: 100;
+
+  & .total-amount {
+    font-size: 1.1em;
+    margin-top: 10px;
+  }
 }
 
 .modal {
@@ -222,14 +232,19 @@
 }
 
 .expenses-table {
-  background-color: #333;
+  background-color: var(--color-dark-a);
   border-collapse: collapse;
   margin: 0 auto;
   border-radius: 10px;
   width: 100%;
+  color: #fff;
 
   & th {
     text-align: start;
+  }
+
+  & th:last-child {
+    display: none;
   }
 
   & th,
@@ -238,7 +253,7 @@
   }
 
   & td {
-    border-top: 2px solid #555;
+    border-top: 2px solid var(--border-dark-color);
 
     & #category {
       border-radius: 7px;
@@ -290,6 +305,18 @@
   background-color: #6667;
 }
 
+.option-button-text {
+  display: none;
+}
+
+.button[title='print'] {
+  display: flex;
+}
+
+.button[title='show charts'] {
+  display: flex;
+}
+
 @media screen and (min-width: 450px) {
   .expenses-table {
     & th,
@@ -299,7 +326,36 @@
   }
 }
 
+@media screen and (min-width: 540px) {
+  .option-button-text {
+    display: block;
+  }
+}
+
 @media screen and (min-width: 950px) {
+  .options-container {
+    & .button {
+      display: none;
+
+      &[title='print'] {
+        display: flex;
+      }
+
+      &[title='show charts'] {
+        display: flex;
+      }
+    }
+  }
+
+  .blur:has(.expense-filter-section) {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    position: static;
+    background-color: transparent;
+    backdrop-filter: none;
+  }
+
   .expense-filter-section {
     display: flex;
     position: sticky;
@@ -311,8 +367,24 @@
     transform: translateY(0px);
   }
 
+  .expense-filter-header {
+    & .button {
+      display: none;
+    }
+  }
+
+  .expense-charts {
+    & .expense-filter-header .button {
+      display: flex;
+    }
+  }
+
   .expenses-table {
     font-size: 1.1em;
+
+    & th:last-child {
+      display: flex;
+    }
   }
 
   .provicional {
@@ -330,6 +402,21 @@
 }
 
 @media screen and (min-width: 1280px) {
+  .options-container {
+    & .button[title='show charts'] {
+      display: none;
+    }
+  }
+
+  .blur:has(.expense-charts) {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    position: static;
+    background-color: transparent;
+    backdrop-filter: none;
+  }
+
   .expense-charts {
     position: sticky;
     top: 85px;
@@ -387,6 +474,15 @@
     }
   }
 
+  .blur {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    position: static;
+    background-color: transparent;
+    backdrop-filter: none;
+  }
+
   .expense-charts {
     position: static;
     opacity: 1;
@@ -395,5 +491,9 @@
     border-radius: 10px;
     transform: translateY(0px);
     z-index: 1;
+
+    & button {
+      display: none;
+    }
   }
 }

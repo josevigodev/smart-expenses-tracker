@@ -2,7 +2,6 @@ import { Cell, Legend, Pie, PieChart, Tooltip } from 'recharts';
 import { useOpenModal } from '../../hooks/useOpenModal';
 import { Button } from '../../components/Button';
 import { CloseIcon } from '../../components/Icons';
-import { useWindowWidth } from '../../hooks/useWindowWidth';
 import { useFilterExpenses } from '../../hooks/useFilterExpenses';
 
 const categoryColors = {
@@ -25,7 +24,6 @@ const categoryColors = {
 export function ExpenseChart({ openCharts, setOpenCharts }) {
   const { expenses } = useFilterExpenses();
   const { className } = useOpenModal({ state: openCharts });
-  const { width } = useWindowWidth();
 
   const formatData = (expenses) => {
     const categories = expenses.map((expense) => {
@@ -44,32 +42,38 @@ export function ExpenseChart({ openCharts, setOpenCharts }) {
       return acc;
     }, {});
 
-    return Object.entries(grouped).map(([category, total]) => ({
+    const data = Object.entries(grouped).map(([category, total]) => ({
       name: category,
       value: total,
     }));
+
+    const totalAmount = [...data].reduce((acc, item) => acc + item.value, 0);
+
+    return { data, totalAmount };
   };
 
-  const data = formatData(expenses);
+  const { data, totalAmount } = formatData(expenses);
 
   return (
-    <div className={`${width < 1280 && 'blur'} ${openCharts && 'visible'}`}>
+    <div className={`blur ${openCharts ? 'visible' : ''}`}>
       <section className={`expense-charts modal ${className}`}>
         <div className='expense-filter-header'>
           <h4>Charts</h4>
-          {width < 1280 && (
-            <Button
-              className='button close-filter'
-              type='button'
-              handleClick={() => {
-                setOpenCharts(!openCharts);
-              }}
-            >
-              <CloseIcon />
-            </Button>
-          )}
+          <Button
+            className='button close-filter'
+            type='button'
+            handleClick={() => {
+              setOpenCharts(!openCharts);
+            }}
+          >
+            <CloseIcon />
+          </Button>
         </div>
-        {data.length === 0 && <p>Add expenses to see the chart</p>}
+        {data.length === 0 ? (
+          <p>Add expenses to see the chart</p>
+        ) : (
+          <span className='total-amount'>Total: $ {totalAmount}</span>
+        )}
         <PieChart width={280} height={375}>
           <Pie
             data={data}

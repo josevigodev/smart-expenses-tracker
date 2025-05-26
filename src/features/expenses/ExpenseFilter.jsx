@@ -5,13 +5,11 @@ import { FilterContext } from '../../context/FilterContext';
 import { CloseIcon } from '../../components/Icons';
 import { Button } from '../../components/Button';
 import { useOpenModal } from '../../hooks/useOpenModal';
-import { useWindowWidth } from '../../hooks/useWindowWidth';
 
 export function ExpenseFilter({ openFilter, setOpenFilter }) {
   const { handleChange } = useExpenseData();
   const { setFilter } = useContext(FilterContext);
   const { className } = useOpenModal({ state: openFilter });
-  const { width } = useWindowWidth();
 
   const minPriceId = useId();
   const categoryId = useId();
@@ -30,18 +28,16 @@ export function ExpenseFilter({ openFilter, setOpenFilter }) {
   };
 
   return (
-    <div className={`${width < 950 && 'blur'} ${openFilter && 'visible'}`}>
+    <div className={`blur ${openFilter ? 'visible' : ''}`}>
       <section className={`expense-filter-section modal ${className}`}>
         <div className='expense-filter-header'>
           <h4>Filters</h4>
-          {width < 950 && (
-            <Button
-              handleClick={handleCloseFilter}
-              className='button close-filter'
-            >
-              <CloseIcon />
-            </Button>
-          )}
+          <Button
+            handleClick={handleCloseFilter}
+            className='button close-filter'
+          >
+            <CloseIcon />
+          </Button>
         </div>
         <nav className='expense-filter'>
           <div className='flex-column-container filter'>

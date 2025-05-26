@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const emptyForm = {
+export const emptyForm = {
   title: '',
   amount: 0.01,
   category: 'select',
@@ -8,8 +8,7 @@ const emptyForm = {
 };
 
 export function useExpenseData(expense) {
-  const initialData = expense ?? emptyForm;
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState(expense ?? emptyForm);
 
   const handleChange = ({ e, prop }) => {
     setData((prevData) => ({
@@ -18,5 +17,5 @@ export function useExpenseData(expense) {
     }));
   };
 
-  return { data, handleChange, setData, initialData };
+  return { data, handleChange, setData };
 }

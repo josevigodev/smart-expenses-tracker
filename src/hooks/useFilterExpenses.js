@@ -1,12 +1,14 @@
-import { useContext } from "react";
+import { useCallback, useContext, useMemo } from "react";
 import { FilterContext } from "../context/FilterContext";
 import { ExpensesContext } from "../context/ExpensesContext";
 
 export function useFilterExpenses() {
   const {filter} = useContext(FilterContext);
   const {expenses} = useContext(ExpensesContext);
+  console.log('renderizo')
 
-  const filterExpenses = (expenses) => {
+  
+  const filterExpenses = useCallback((expenses) => {
     return expenses.filter(expense => {
       return (
         Number(expense.amount) >= filter.minPrice && (
@@ -16,9 +18,11 @@ export function useFilterExpenses() {
         )
       )
     })
-  }
-
-  const filteredExpenses = filterExpenses(expenses);
+  }, [filter])
+  
+  const filteredExpenses = useMemo(() => {
+    return filterExpenses(expenses);
+  }, [expenses, filterExpenses])
 
   return {expenses: filteredExpenses}
 }
