@@ -1,4 +1,14 @@
-export function Input({ type, value, id, required, handleChange, className }) {
+export function Input({
+  type,
+  value,
+  id,
+  required,
+  handleChange,
+  className,
+  name,
+  filter,
+  form,
+}) {
   return type === 'text' ? (
     <input
       required={required}
@@ -35,8 +45,13 @@ export function Input({ type, value, id, required, handleChange, className }) {
       id={id}
       value={value}
       onChange={handleChange}
+      name={name}
     >
-      <option value='select'>Select</option>
+      {filter ? (
+        <option value='all'>All</option>
+      ) : form ? (
+        <option value='select'>Select</option>
+      ) : null}
       <option value='Housing'>Housing</option>
       <option value='Utilities'>Utilities</option>
       <option value='Transportation'>Transportation</option>

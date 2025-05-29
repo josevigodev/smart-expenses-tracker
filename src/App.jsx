@@ -1,88 +1,38 @@
-import { useState } from 'react';
-import { Button } from './components/Button';
-import { ExpensesContextProvider } from './context/ExpensesContextProvider';
-import { FilterContextProvider } from './context/FilterContextProvider';
-import { ExpenseForm } from './features/expenses/ExpenseForm';
-import { ExpenseList } from './features/expenses/ExpenseList';
 import './styles/globals.css';
-import {
-  AddIcon,
-  ChartIcon,
-  FilterIcon,
-  PrinterIcon,
-} from './components/Icons';
-import { ExpenseFilter } from './features/expenses/ExpenseFilter';
-import { ExpenseChart } from './features/expenses/ExpenseChart';
+import { lazy, Suspense, useState } from 'react';
+import { ExpensesContextProvider } from './context/ExpensesContextProvider';
+import { Header } from './components/Header';
+import { Dashboard } from './components/Dashboard';
+import { Footer } from './components/Footer';
+
+const ExpenseForm = lazy(() =>
+  import('./features/expenses/ExpenseForm').catch((error) => {
+    console.log('Error loading component: ', error);
+
+    return {
+      default: () => (
+        <div>Failed to load component. Check the conection and try again.</div>
+      ),
+    };
+  })
+);
 
 function App() {
-  const [openForm, setOpenForm] = useState(false);
-  const [openFilter, setOpenFilter] = useState(false);
-  const [openCharts, setOpenCharts] = useState(false);
-
-  const handlePrintClick = () => {
-    window.print();
-  };
+  const [active, setActive] = useState('');
 
   return (
-    <>
-      <header className='header'>
-        <div className='width-padding-container'>
-          <div className='options-container'>
-            <Button
-              className='button add'
-              title='add expense'
-              handleClick={() => setOpenForm(!openForm)}
-            >
-              <AddIcon />
-              <span className='option-button-text'>Add Expense</span>
-            </Button>
-            <Button
-              title='show filters'
-              className='button'
-              handleClick={() => setOpenFilter(true)}
-            >
-              <FilterIcon />
-              <span className='option-button-text'>Show Filters</span>
-            </Button>
-            <Button
-              handleClick={() => setOpenCharts(true)}
-              title='show charts'
-              className='button'
-            >
-              <ChartIcon />
-              <span className='option-button-text'>Show Charts</span>
-            </Button>
-            <Button
-              handleClick={handlePrintClick}
-              title='print'
-              className='button'
-            >
-              <PrinterIcon />
-              <span className='option-button-text'>Print</span>
-            </Button>
-          </div>
-        </div>
-      </header>
-
+    <div className='layout-container'>
+      <Header setActive={setActive} />
       <ExpensesContextProvider>
-        {openForm && (
-          <ExpenseForm openForm={openForm} setOpenForm={setOpenForm} />
-        )}
-        <FilterContextProvider>
-          <div className='provicional'>
-            <ExpenseFilter
-              openFilter={openFilter}
-              setOpenFilter={setOpenFilter}
-            />
-            <ExpenseList setOpenForm={setOpenForm} />
-            <ExpenseChart
-              openCharts={openCharts}
-              setOpenCharts={setOpenCharts}
-            />
-          </div>
-        </FilterContextProvider>
+        <Suspense fallback={<div className='loader'></div>}>
+          {active === 'form' && (
+            <ExpenseForm active={active} setActive={setActive} />
+          )}
+        </Suspense>
+        <Dashboard active={active} setActive={setActive} />
       </ExpensesContextProvider>
-    </>
+      <Footer />
+    </div>
   );
 }
 

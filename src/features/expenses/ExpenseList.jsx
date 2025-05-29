@@ -2,8 +2,9 @@ import { ExpenseItem } from './ExpenseItem';
 import { useFilterExpenses } from '../../hooks/useFilterExpenses';
 import { Button } from '../../components/Button';
 import { AddIcon } from '../../components/Icons';
+import { memo } from 'react';
 
-export function ExpenseList({ setOpenForm }) {
+export const ExpenseList = memo(function ({ setActive }) {
   const { expenses } = useFilterExpenses();
 
   return (
@@ -19,7 +20,7 @@ export function ExpenseList({ setOpenForm }) {
               <Button
                 className='button add'
                 title='add expense'
-                handleClick={() => setOpenForm(true)}
+                handleClick={() => setActive('form')}
               >
                 <AddIcon />
                 <span>Add Expense</span>
@@ -35,4 +36,4 @@ export function ExpenseList({ setOpenForm }) {
       </table>
     </section>
   );
-}
+});

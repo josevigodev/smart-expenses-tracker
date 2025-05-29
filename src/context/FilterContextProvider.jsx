@@ -4,7 +4,7 @@ import { FilterContext } from './FilterContext';
 export function FilterContextProvider({ children }) {
   const [filter, setFilter] = useState({
     minPrice: 0.01,
-    category: 'select',
+    category: 'all',
     date: '',
   });
 

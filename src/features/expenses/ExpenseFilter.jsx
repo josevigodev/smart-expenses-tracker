@@ -1,26 +1,23 @@
 import { useContext, useId } from 'react';
 import { Input } from '../../components/Input';
-import { useExpenseData } from '../../hooks/useExpenseData';
 import { FilterContext } from '../../context/FilterContext';
 import { CloseIcon } from '../../components/Icons';
 import { Button } from '../../components/Button';
 import { useOpenModal } from '../../hooks/useOpenModal';
 
-export function ExpenseFilter({ openFilter, setOpenFilter }) {
-  const { handleChange } = useExpenseData();
+function ExpenseFilter({ active, setActive }) {
   const { setFilter } = useContext(FilterContext);
-  const { className } = useOpenModal({ state: openFilter });
+  const { className } = useOpenModal({ state: active === 'filter' });
 
   const minPriceId = useId();
   const categoryId = useId();
   const dateId = useId();
 
   const handleCloseFilter = () => {
-    setOpenFilter(false);
+    setActive('');
   };
 
   const handleInputChange = ({ e, prop }) => {
-    handleChange({ e, prop: 'amount' });
     setFilter((prevFilter) => ({
       ...prevFilter,
       [prop]: e.target.value,
@@ -28,20 +25,17 @@ export function ExpenseFilter({ openFilter, setOpenFilter }) {
   };
 
   return (
-    <div className={`blur ${openFilter ? 'visible' : ''}`}>
-      <section className={`expense-filter-section modal ${className}`}>
+    <div className={`blur ${active === 'filter' ? 'visible' : ''}`}>
+      <aside className={`expense-filter-section modal ${className}`}>
         <div className='expense-filter-header'>
           <h4>Filters</h4>
-          <Button
-            handleClick={handleCloseFilter}
-            className='button close-filter'
-          >
+          <Button handleClick={handleCloseFilter} className='button close'>
             <CloseIcon />
           </Button>
         </div>
-        <nav className='expense-filter'>
-          <div className='flex-column-container filter'>
-            <label htmlFor={minPriceId}>Min price:</label>
+        <form className='expense-filter'>
+          <div className='filter'>
+            <label htmlFor={minPriceId}>Min price ($):</label>
             <Input
               id={minPriceId}
               className='input'
@@ -50,9 +44,10 @@ export function ExpenseFilter({ openFilter, setOpenFilter }) {
             />
           </div>
 
-          <div className='flex-column-container filter'>
+          <div className='filter'>
             <label htmlFor={categoryId}>Category:</label>
             <Input
+              filter
               id={categoryId}
               className='input'
               handleChange={(e) => handleInputChange({ e, prop: 'category' })}
@@ -60,7 +55,7 @@ export function ExpenseFilter({ openFilter, setOpenFilter }) {
             />
           </div>
 
-          <div className='flex-column-container filter'>
+          <div className='filter'>
             <label htmlFor={dateId}>Date:</label>
             <Input
               id={dateId}
@@ -69,8 +64,10 @@ export function ExpenseFilter({ openFilter, setOpenFilter }) {
               type='date'
             />
           </div>
-        </nav>
-      </section>
+        </form>
+      </aside>
     </div>
   );
 }
+
+export default ExpenseFilter;

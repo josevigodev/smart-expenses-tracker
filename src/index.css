@@ -1,13 +1,19 @@
 :root {
-  --color-dark-a: #222;
-  --border-dark-color: #555;
+  --bg-color-a: #eeeeef;
+  --bg-color-b: #cccddf;
+  --bg-color-c: #ddd;
+  --text-color-a: #333;
+  --text-color-b: #555;
+  --border-color: #555;
+  --outline-color: #48e;
+  --transparent-color: #48e3;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #333;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -21,17 +27,46 @@
   padding: 0;
 }
 
+.dark {
+  /* --bg-color-a: #333; */
+  --bg-color-a: #111224;
+  --bg-color-b: #333446;
+  --bg-color-c: #555;
+  --text-color-a: #fff;
+  --text-color-b: #eee;
+  --border-color: #aaa;
+  --transparent-color: #48e1;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--bg-color-b);
+  min-height: 100dvh;
+  color-scheme: light;
+}
+
+.layout-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 select,
 input[type='date'] {
   cursor: pointer;
 }
 
 .width-padding-container {
-  margin: 0 auto;
+  flex: 1;
+  margin: 0;
 }
 
 @media screen and (min-width: 600px) {
   .width-padding-container {
-    padding: 0 20px;
+    padding: 0 10px;
+  }
+
+  .expenses-table {
+    border-radius: 10px;
   }
 }

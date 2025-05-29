@@ -5,14 +5,12 @@ import { ExpensesContext } from "../context/ExpensesContext";
 export function useFilterExpenses() {
   const {filter} = useContext(FilterContext);
   const {expenses} = useContext(ExpensesContext);
-  console.log('renderizo')
 
-  
   const filterExpenses = useCallback((expenses) => {
     return expenses.filter(expense => {
       return (
         Number(expense.amount) >= filter.minPrice && (
-          filter.category === 'select' || expense.category === filter.category
+          filter.category === 'all' || expense.category === filter.category
         ) && (
           filter.date === '' || expense.date === filter.date
         )
@@ -23,6 +21,6 @@ export function useFilterExpenses() {
   const filteredExpenses = useMemo(() => {
     return filterExpenses(expenses);
   }, [expenses, filterExpenses])
-
+  
   return {expenses: filteredExpenses}
 }

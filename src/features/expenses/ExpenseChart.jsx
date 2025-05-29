@@ -1,69 +1,42 @@
-import { Cell, Legend, Pie, PieChart, Tooltip } from 'recharts';
+import { Cell, Legend, Pie, PieChart } from 'recharts';
 import { useOpenModal } from '../../hooks/useOpenModal';
 import { Button } from '../../components/Button';
 import { CloseIcon } from '../../components/Icons';
 import { useFilterExpenses } from '../../hooks/useFilterExpenses';
+import { useData } from '../../hooks/useData';
 
 const categoryColors = {
   Housing: '#48e',
-  Utilities: '#4e8',
+  Utilities: '#4f0',
   Transportation: '#488',
   Groceries: '#4ee',
   Health: '#84e',
-  Insurance: '#8e4',
-  Entertainment: '#8ee',
+  Insurance: '#8e7',
+  Entertainment: '#bc9',
   Education: '#844',
   Shopping: '#e48',
   Travel: '#e84',
   Gifts: '#e88',
   Saving: '#e44',
-  Investments: '#a3e',
+  Investments: '#fe8',
   Miscellaneous: '#666',
 };
 
-export function ExpenseChart({ openCharts, setOpenCharts }) {
+function ExpenseChart({ active, setActive }) {
   const { expenses } = useFilterExpenses();
-  const { className } = useOpenModal({ state: openCharts });
-
-  const formatData = (expenses) => {
-    const categories = expenses.map((expense) => {
-      return {
-        category: expense.category,
-        amount: Number(expense.amount),
-      };
-    });
-
-    const grouped = categories.reduce((acc, item) => {
-      if (!acc[item.category]) {
-        acc[item.category] = 0;
-      }
-
-      acc[item.category] += item.amount;
-      return acc;
-    }, {});
-
-    const data = Object.entries(grouped).map(([category, total]) => ({
-      name: category,
-      value: total,
-    }));
-
-    const totalAmount = [...data].reduce((acc, item) => acc + item.value, 0);
-
-    return { data, totalAmount };
-  };
-
-  const { data, totalAmount } = formatData(expenses);
+  const { className } = useOpenModal({ state: active === 'charts' });
+  const { data, totalAmount } = useData(expenses);
 
   return (
-    <div className={`blur ${openCharts ? 'visible' : ''}`}>
+    <div className={`blur ${active === 'charts' ? 'visible' : ''}`}>
       <section className={`expense-charts modal ${className}`}>
         <div className='expense-filter-header'>
           <h4>Charts</h4>
           <Button
-            className='button close-filter'
+            className='button close'
             type='button'
             handleClick={() => {
-              setOpenCharts(!openCharts);
+              setActive('');
             }}
           >
             <CloseIcon />
@@ -74,7 +47,7 @@ export function ExpenseChart({ openCharts, setOpenCharts }) {
         ) : (
           <span className='total-amount'>Total: $ {totalAmount}</span>
         )}
-        <PieChart width={280} height={375}>
+        <PieChart width={280} height={420}>
           <Pie
             data={data}
             dataKey='value'
@@ -92,10 +65,11 @@ export function ExpenseChart({ openCharts, setOpenCharts }) {
               />
             ))}
           </Pie>
-          <Tooltip />
           <Legend />
         </PieChart>
       </section>
     </div>
   );
 }
+
+export default ExpenseChart;

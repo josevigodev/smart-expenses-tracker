@@ -1,45 +1,71 @@
-import { useContext, useId } from 'react';
+import { useContext, useId, useState } from 'react';
 import { Button } from '../../components/Button';
 import { ExpensesContext } from '../../context/ExpensesContext';
 import { CloseIcon } from '../../components/Icons';
 import { Input } from '../../components/Input';
-import { emptyForm, useExpenseData } from '../../hooks/useExpenseData';
 import { useOpenModal } from '../../hooks/useOpenModal';
 
-export function ExpenseForm({ openForm, setOpenForm }) {
+const emptyForm = {
+  title: '',
+  amount: 0.01,
+  category: 'select',
+  date: '',
+};
+
+function ExpenseForm({ active, setActive }) {
+  const [data, setData] = useState(emptyForm);
+  const [error, setError] = useState('');
+
+  const { className } = useOpenModal({ state: active === 'form' });
+  const { addExpense } = useContext(ExpensesContext);
+
   const titleId = useId();
   const amountId = useId();
   const categoryId = useId();
   const dateId = useId();
 
-  const { className } = useOpenModal({ state: openForm });
-
-  const { addExpense } = useContext(ExpensesContext);
-  const { data, handleChange, setData } = useExpenseData();
+  const handleChange = ({ e, prop }) => {
+    if (prop === 'category' && e.target.value === 'select') {
+      setError('Select a valid category');
+    } else if (prop === 'category' && e.target.value !== 'select') {
+      setError('');
+    }
+    setData((prevData) => ({
+      ...prevData,
+      [prop]: e.target.value,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (e.target.category.value === 'select') {
+      setError('Select a valid category');
+      return;
+    }
+
     addExpense({ expenseData: data });
     setData(emptyForm);
-    setOpenForm(!openForm);
+    setActive('');
   };
 
   return (
-    <div className={`blur ${openForm ? 'visible' : ''}`}>
+    <div className={`blur ${active === 'form' ? 'visible' : ''}`}>
       <form
         onSubmit={handleSubmit}
         className={`expense-form modal ${className}`}
       >
-        <Button
-          className='button close'
-          type='button'
-          handleClick={() => {
-            setOpenForm(!openForm);
-            setData(emptyForm);
-          }}
-        >
-          <CloseIcon />
-        </Button>
+        <div className='close-button-container'>
+          <Button
+            className='button close'
+            type='button'
+            handleClick={() => {
+              setActive('');
+              setData(emptyForm);
+            }}
+          >
+            <CloseIcon />
+          </Button>
+        </div>
         <div className='flex-column-container'>
           <label htmlFor={titleId}>Title</label>
           <Input
@@ -67,12 +93,15 @@ export function ExpenseForm({ openForm, setOpenForm }) {
         <div className='flex-column-container'>
           <label htmlFor={categoryId}>Category</label>
           <Input
+            form
+            name='category'
             type='select'
             className='input'
             handleChange={(e) => handleChange({ e, prop: 'category' })}
             value={data.category}
             id={categoryId}
           />
+          <small className='category-error'>{error}</small>
         </div>
 
         <div className='flex-column-container'>
@@ -93,3 +122,5 @@ export function ExpenseForm({ openForm, setOpenForm }) {
     </div>
   );
 }
+
+export default ExpenseForm;
