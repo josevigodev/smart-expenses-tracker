@@ -4,8 +4,8 @@ A professional, frontend-focused web application designed to help users efficien
 
 ## Screenshots
 
-![Dashboard View](assets/dashboard_view.png)
-![Mobile View](assets/mobile_view.png)
+![Dashboard View](./src/assets/dashboard_view.png)
+![Mobile View](./src/assets/mobile_view.png)
 
 ## Features
 
@@ -13,15 +13,15 @@ A professional, frontend-focused web application designed to help users efficien
 - Filter expenses by min price, category and date.
 - Print expenses.
 - Visualize expenses with chart (using Recharts).
-- Responsive and accessible UI.
-- Dark and light mode toggle.
 - Local storage support for data persistence.
+- Responsive and accessible UI.
 - Performance-optimized with lazy loading and conditional rendering.
+- Dark and light mode toggle.
 
 ## Tech Stack
 
 - React + Vite.
-- JavaScript (ES6+)
+- JavaScript (ES6+).
 - CSS.
 - Local Storage API.
 
