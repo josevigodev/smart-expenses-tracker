@@ -5,7 +5,7 @@ A professional, frontend-focused web application designed to help users efficien
 ## Screenshots
 
 <img styles="display: inline-block" src="./src/assets/dashboard_view.png" width="500"/>
-<img styles="display: inline-block" src="./src/assets/mobile_view.png" width="200"/>
+<img styles="border-radius: 10px" src="./src/assets/mobile_view.png" width="200"/>
 
 ## Features
 
