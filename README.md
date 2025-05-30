@@ -4,8 +4,8 @@ A professional, frontend-focused web application designed to help users efficien
 
 ## Screenshots
 
-![Dashboard View](./src/assets/dashboard_view.png)
-![Mobile View](./src/assets/mobile_view.png)
+<img src="./src/assets/dashboard_view.png" width="500"/>
+<img src="./src/assets/mobile_view.png" width="200"/>
 
 ## Features
 
@@ -30,7 +30,7 @@ A professional, frontend-focused web application designed to help users efficien
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/josevigodev/expenses-tracker.git
+git clone https://github.com/josevigodev/smart-expenses-tracker.git
 cd expenses-tracker
 npm install
 ```
