@@ -1,9 +1,9 @@
 import { Cell, Legend, Pie, PieChart } from 'recharts';
-import { useOpenModal } from '../../hooks/useOpenModal';
-import { Button } from '../../components/Button';
-import { CloseIcon } from '../../components/Icons';
-import { useFilterExpenses } from '../../hooks/useFilterExpenses';
-import { useData } from '../../hooks/useData';
+import { useOpenModal } from '../hooks/useOpenModal';
+import { Button } from './common/Button';
+import { CloseIcon } from './common/Icons';
+import { useFilterExpenses } from '../hooks/useFilterExpenses';
+import { useData } from '../hooks/useData';
 
 const categoryColors = {
   Housing: '#48e',
@@ -22,7 +22,7 @@ const categoryColors = {
   Miscellaneous: '#666',
 };
 
-function ExpenseChart({ active, setActive }) {
+export function ExpenseChart({ active, setActive }) {
   const { expenses } = useFilterExpenses();
   const { className } = useOpenModal({ state: active === 'charts' });
   const { data, totalAmount } = useData(expenses);
@@ -31,7 +31,7 @@ function ExpenseChart({ active, setActive }) {
     <div className={`blur ${active === 'charts' ? 'visible' : ''}`}>
       <section className={`expense-charts modal ${className}`}>
         <div className='expense-filter-header'>
-          <h4>Charts</h4>
+          <h4>Chart</h4>
           <Button
             className='button close'
             type='button'
@@ -71,5 +71,3 @@ function ExpenseChart({ active, setActive }) {
     </div>
   );
 }
-
-export default ExpenseChart;

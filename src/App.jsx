@@ -1,12 +1,12 @@
 import './styles/globals.css';
 import { lazy, Suspense, useState } from 'react';
-import { ExpensesContextProvider } from './context/ExpensesContextProvider';
 import { Header } from './components/Header';
 import { Dashboard } from './components/Dashboard';
 import { Footer } from './components/Footer';
+import { ExpensesContextProvider } from './context/ExpensesContextProvider';
 
 const ExpenseForm = lazy(() =>
-  import('./features/expenses/ExpenseForm').catch((error) => {
+  import('./components/ExpenseForm').catch((error) => {
     console.log('Error loading component: ', error);
 
     return {

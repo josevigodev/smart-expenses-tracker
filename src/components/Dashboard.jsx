@@ -1,12 +1,11 @@
-import { useMediaQuery } from '../hooks/useMediaQuery';
+import { ExpenseFilter } from './ExpenseFilter';
+import { ExpenseList } from './ExpenseList';
+import { ExpenseChart } from './ExpenseChart';
 import { FilterContextProvider } from '../context/FilterContextProvider';
-import ExpenseFilter from '../features/expenses/ExpenseFilter';
-import { ExpenseList } from '../features/expenses/ExpenseList';
-import ExpenseChart from '../features/expenses/ExpenseChart';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 
 export function Dashboard({ active, setActive }) {
   const showFilter = useMediaQuery('(min-width: 950px)');
-  // const showCharts = useMediaQuery('(min-width: 1280px)');
 
   return (
     <FilterContextProvider>

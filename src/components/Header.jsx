@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { Button } from './Button';
-import { AddIcon, ChartIcon, FilterIcon, PrinterIcon } from './Icons';
+import { Button } from './common/Button';
+import { AddIcon, ChartIcon, FilterIcon, PrinterIcon } from './common/Icons';
 import { ToggleTheme } from './ToggleTheme';
 
 export const Header = memo(function ({ setActive }) {
@@ -11,6 +11,7 @@ export const Header = memo(function ({ setActive }) {
   return (
     <header className='header'>
       <div className='max-width'>
+        <h1>Expenses Tracker</h1>
         <div className='options-container'>
           <Button
             className='button add'

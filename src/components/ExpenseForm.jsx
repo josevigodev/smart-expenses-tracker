@@ -1,9 +1,9 @@
 import { useContext, useId, useState } from 'react';
-import { Button } from '../../components/Button';
-import { ExpensesContext } from '../../context/ExpensesContext';
-import { CloseIcon } from '../../components/Icons';
-import { Input } from '../../components/Input';
-import { useOpenModal } from '../../hooks/useOpenModal';
+import { Button } from './common/Button';
+import { Input } from './common/Input';
+import { CloseIcon } from './common/Icons';
+import { ExpensesContext } from '../context/ExpensesContext';
+import { useOpenModal } from '../hooks/useOpenModal';
 
 const emptyForm = {
   title: '',

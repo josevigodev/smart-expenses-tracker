@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { getLocalStorage, updateLocalStorage } from '../utils/localStorage';
 
 const initialTheme = getLocalStorage('theme') || 'light';
@@ -18,6 +17,7 @@ export function ToggleTheme() {
 
   return (
     <select
+      aria-label='Theme selector'
       className='theme-selector'
       value={theme}
       onChange={handleChange}

@@ -1,7 +1,7 @@
 import { ExpenseItem } from './ExpenseItem';
-import { useFilterExpenses } from '../../hooks/useFilterExpenses';
-import { Button } from '../../components/Button';
-import { AddIcon } from '../../components/Icons';
+import { useFilterExpenses } from '../hooks/useFilterExpenses';
+import { Button } from './common/Button';
+import { AddIcon } from './common/Icons';
 import { memo } from 'react';
 
 export const ExpenseList = memo(function ({ setActive }) {

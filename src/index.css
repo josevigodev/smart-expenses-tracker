@@ -11,9 +11,10 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
+  color-scheme: dark;
   background-color: #333;
+  scrollbar-width: thin;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -28,10 +29,9 @@
 }
 
 .dark {
-  /* --bg-color-a: #333; */
   --bg-color-a: #111224;
   --bg-color-b: #333446;
-  --bg-color-c: #555;
+  --bg-color-c: #2d3064;
   --text-color-a: #fff;
   --text-color-b: #eee;
   --border-color: #aaa;
@@ -46,9 +46,18 @@ body {
 }
 
 .layout-container {
+  min-height: 100vh;
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
+}
+
+h1 {
+  display: none;
+  top: 0;
+  left: 70px;
+  position: absolute;
 }
 
 select,

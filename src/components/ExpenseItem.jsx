@@ -1,13 +1,8 @@
 import { memo, useContext, useId, useRef, useState } from 'react';
-import { Button } from '../../components/Button';
-import {
-  CloseIcon,
-  DeleteIcon,
-  EditIcon,
-  SaveIcon,
-} from '../../components/Icons';
-import { ExpensesContext } from '../../context/ExpensesContext';
-import { Input } from '../../components/Input';
+import { Button } from './common/Button';
+import { Input } from './common/Input';
+import { CloseIcon, DeleteIcon, EditIcon, SaveIcon } from './common/Icons';
+import { ExpensesContext } from '../context/ExpensesContext';
 
 export const ExpenseItem = memo(function ({
   title,

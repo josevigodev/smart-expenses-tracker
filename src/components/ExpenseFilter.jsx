@@ -1,11 +1,11 @@
 import { useContext, useId } from 'react';
-import { Input } from '../../components/Input';
-import { FilterContext } from '../../context/FilterContext';
-import { CloseIcon } from '../../components/Icons';
-import { Button } from '../../components/Button';
-import { useOpenModal } from '../../hooks/useOpenModal';
+import { Button } from './common/Button';
+import { Input } from './common/Input';
+import { CloseIcon } from './common/Icons';
+import { FilterContext } from '../context/FilterContext';
+import { useOpenModal } from '../hooks/useOpenModal';
 
-function ExpenseFilter({ active, setActive }) {
+export function ExpenseFilter({ active, setActive }) {
   const { setFilter } = useContext(FilterContext);
   const { className } = useOpenModal({ state: active === 'filter' });
 
@@ -69,5 +69,3 @@ function ExpenseFilter({ active, setActive }) {
     </div>
   );
 }
-
-export default ExpenseFilter;
